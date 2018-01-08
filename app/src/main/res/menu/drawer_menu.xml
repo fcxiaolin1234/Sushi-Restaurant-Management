@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/home"
+        android:title="Trang chủ"
+        android:icon="@drawable/ic_if_home_216242"/>
+    <item
+        android:id="@+id/account"
+        android:title="Quản lý tài khoản"
+        android:icon="@drawable/ic_round_account_button_with_user_inside"/>
+    <item
+        android:id="@+id/notify"
+        android:title="Thông báo"
+        android:icon="@drawable/ic_if_bell_2199103"/>
+    <item
+        android:id="@+id/setting"
+        android:title="Cài đặt"
+        android:icon="@drawable/ic_settings"/>
+
+</menu>

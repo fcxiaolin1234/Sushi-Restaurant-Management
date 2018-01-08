@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Sushi_App</string>
+    <string name="nav_setting">Setting</string>
+    <string name="nav_home">Home</string>
+    <string name="nav_account">Account</string>
+    <string name="nav_notify">Notify</string>
+    <string name="nav_open">OpenNavigation</string>
+    <string name="nav_close">CloseNavigation</string>
+
 </resources>
