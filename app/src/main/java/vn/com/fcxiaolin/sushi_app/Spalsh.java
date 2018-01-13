@@ -30,6 +30,7 @@ public class Spalsh extends AppCompatActivity {
                 finally {
                     startActivity(i);
                 }
+
             }
         };
         timer.start();
