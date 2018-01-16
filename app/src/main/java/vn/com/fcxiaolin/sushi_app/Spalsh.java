@@ -33,5 +33,7 @@ public class Spalsh extends AppCompatActivity {
             }
         };
         timer.start();
+
+        System.out.println("Hello World");
     }
 }
