@@ -19,7 +19,7 @@ public class Spalsh extends AppCompatActivity {
         iv = (ImageView) findViewById(R.id.splashiv);
         Animation anim = AnimationUtils.loadAnimation(this,R.anim.trans);
         iv.startAnimation(anim);
-        final Intent i = new Intent(this,MainActivity.class);
+        final Intent i = new Intent(this,navigation_screen.class);
         Thread timer = new Thread(){
             public void run(){
                 try{
@@ -30,6 +30,7 @@ public class Spalsh extends AppCompatActivity {
                 finally {
                     startActivity(i);
                 }
+
             }
         };
         timer.start();
