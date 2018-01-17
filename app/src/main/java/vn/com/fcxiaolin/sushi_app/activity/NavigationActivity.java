@@ -41,7 +41,6 @@ import vn.com.fcxiaolin.sushi_app.utils.Server;
 
 public class NavigationActivity extends AppCompatActivity {
 
-//    private ActionBarDrawerToggle drToggle;
 
     private Toolbar toolbar;
     private ViewFlipper viewFlipper;
