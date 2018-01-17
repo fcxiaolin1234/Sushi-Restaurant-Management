@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
-    tools:context="vn.com.fcxiaolin.sushi_app.Spalsh">
+    tools:context="vn.com.fcxiaolin.sushi_app.activity.Spalsh">
     <LinearLayout
         android:gravity="center"
         android:layout_width="match_parent"
