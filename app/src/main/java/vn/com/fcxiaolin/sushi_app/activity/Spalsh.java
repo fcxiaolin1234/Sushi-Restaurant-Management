@@ -1,4 +1,4 @@
-package vn.com.fcxiaolin.sushi_app;
+package vn.com.fcxiaolin.sushi_app.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,6 +7,8 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import vn.com.fcxiaolin.sushi_app.R;
 
 public class Spalsh extends AppCompatActivity {
     private TextView tv;
@@ -19,7 +21,7 @@ public class Spalsh extends AppCompatActivity {
         iv = (ImageView) findViewById(R.id.splashiv);
         Animation anim = AnimationUtils.loadAnimation(this,R.anim.trans);
         iv.startAnimation(anim);
-        final Intent i = new Intent(this,navigation_screen.class);
+        final Intent i = new Intent(this,NavigationActivity.class);
         Thread timer = new Thread(){
             public void run(){
                 try{
