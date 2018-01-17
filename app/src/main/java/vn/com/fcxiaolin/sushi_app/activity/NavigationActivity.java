@@ -41,7 +41,6 @@ import vn.com.fcxiaolin.sushi_app.utils.Server;
 
 public class NavigationActivity extends AppCompatActivity {
 
-//    private DrawerLayout drLayout;
 //    private ActionBarDrawerToggle drToggle;
 
     private Toolbar toolbar;
@@ -79,7 +78,7 @@ public class NavigationActivity extends AppCompatActivity {
         viewFlipper = (ViewFlipper) findViewById(R.id.viewFlipper);
         listView = (ListView) findViewById(R.id.listView);
         navigationView = (NavigationView) findViewById(R.id.navigationView);
-        drawerLayout = (DrawerLayout) findViewById(R.id.drawerlayout);
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
 
         categoryList = new ArrayList<Category>();
         categoryAdapter = new CategoryAdapter(categoryList, getApplicationContext());
