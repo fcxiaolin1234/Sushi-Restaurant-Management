@@ -1,13 +1,13 @@
-package vn.com.fcxiaolin.sushi_app;
+package vn.com.fcxiaolin.sushi_app.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class recycle_view_list_product extends AppCompatActivity {
+public class KhacActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_recycle_view_list_product);
+        setContentView(R.layout.activity_khac);
     }
 }
