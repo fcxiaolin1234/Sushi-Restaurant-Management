@@ -67,7 +67,7 @@ public class SushiActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent= new Intent(getApplicationContext(),DetailProduct.class);
-                intent.putExtra("information of product",listSushi.get(position));
+                intent.putExtra("informationofproduct",listSushi.get(position));
                 startActivity(intent);
             }
         });
