@@ -72,7 +72,10 @@ public class SushiAdapter extends BaseAdapter {
         viewHolder.txtDesSushi.setMaxLines(2);
         viewHolder.txtDesSushi.setEllipsize(TextUtils.TruncateAt.END);
         viewHolder.txtDesSushi.setText(product.getDescription());
-        Picasso.with(context).load(product.getImage()).placeholder(R.drawable.noimage).error(R.drawable.noimageerror).into((Target) viewHolder.imgSushi);
+        Picasso.with(context).load(product.getImage())
+                .placeholder(R.drawable.noimage)
+                .error(R.drawable.noimageerror)
+                .into(viewHolder.imgSushi);
         return convertView;
     }
 }

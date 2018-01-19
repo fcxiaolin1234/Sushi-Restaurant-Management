@@ -175,7 +175,7 @@ public class NavigationActivity extends AppCompatActivity {
             }
         });
     }
-
+// loai san pham
     private void getCategoryData() {
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Server.categoryUrl, new Response.Listener<JSONArray>() {
@@ -208,7 +208,7 @@ public class NavigationActivity extends AppCompatActivity {
         });
         requestQueue.add(jsonArrayRequest);
     }
-
+// san pham moi nhat
     private void getNewProductData(){
         RequestQueue requestQueue= Volley.newRequestQueue(getApplicationContext());
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Server.newProductUrl, new Response.Listener<JSONArray>() {

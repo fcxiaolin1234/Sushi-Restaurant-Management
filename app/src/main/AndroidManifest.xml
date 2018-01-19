@@ -29,7 +29,8 @@
         <activity android:name=".activity.SukiyakiActivity" />
         <activity android:name=".activity.SobaActivity" />
         <activity android:name=".activity.DrinkActivity" />
-        <activity android:name=".activity.KhacActivity"></activity>
+        <activity android:name=".activity.KhacActivity" />
+        <activity android:name=".activity.DetailProduct"></activity>
     </application>
 
 </manifest>
