@@ -2,34 +2,34 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="vn.com.fcxiaolin.sushi_app">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-
+        android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:label="@string/app_name"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.NavigationActivity"
-            android:theme="@style/Navigation">
-
-
-        </activity>
-
-        <activity android:name=".activity.Spalsh" android:theme="@style/AppTheme.NoActionBar"
-            android:noHistory="true">
+        <activity
+            android:name=".activity.NavigationActivity"
+            android:theme="@style/Navigation" />
+        <activity
+            android:name=".activity.Spalsh"
+            android:noHistory="true"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".recycle_view_list_product">
-
-        </activity>
+        <activity android:name=".activity.SushiActivity" />
+        <activity android:name=".activity.SukiyakiActivity" />
+        <activity android:name=".activity.SobaActivity" />
+        <activity android:name=".activity.DrinkActivity" />
+        <activity android:name=".activity.KhacActivity"></activity>
     </application>
 
-    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 </manifest>
