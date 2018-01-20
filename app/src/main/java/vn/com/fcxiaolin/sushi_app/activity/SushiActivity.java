@@ -104,7 +104,7 @@ public class SushiActivity extends AppCompatActivity {
                     String name="";
                     float price=0;
                     String image="";
-                     String description="";
+                    String description="";
                     int idcategory=0;
                     if(response!=null&&response.length()!=2)
                     {
