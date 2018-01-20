@@ -1,10 +1,12 @@
 package vn.com.fcxiaolin.sushi_app.model;
 
+import java.io.Serializable;
+
 /**
  * Created by ASUS on 1/18/2018.
  */
 
-public class Product {
+public class Product implements Serializable{
     public int id;
     public String name;
     public float price;

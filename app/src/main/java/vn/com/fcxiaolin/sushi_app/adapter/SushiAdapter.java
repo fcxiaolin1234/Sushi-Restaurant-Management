@@ -57,10 +57,10 @@ public class SushiAdapter extends BaseAdapter {
             viewHolder = new ViewHolder();
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.sushi_item,null);
-            viewHolder.txtNameSushi = convertView.findViewById(R.id.sushiNameTextView);
-            viewHolder.txtPriceSushi = convertView.findViewById(R.id.sushiPriceTextView);
-            viewHolder.txtDesSushi = convertView.findViewById(R.id.sushiDescriptTextView);
-            viewHolder.imgSushi = convertView.findViewById(R.id.imageViewSushi);
+            viewHolder.txtNameSushi = convertView.findViewById(R.id.name_list_view);
+            viewHolder.txtPriceSushi = convertView.findViewById(R.id.price_list_view);
+            viewHolder.txtDesSushi = convertView.findViewById(R.id.mota_list_view);
+            viewHolder.imgSushi = convertView.findViewById(R.id.img_list_view);
             convertView.setTag(viewHolder);
         }else{
             viewHolder = (ViewHolder) convertView.getTag();
@@ -72,7 +72,10 @@ public class SushiAdapter extends BaseAdapter {
         viewHolder.txtDesSushi.setMaxLines(2);
         viewHolder.txtDesSushi.setEllipsize(TextUtils.TruncateAt.END);
         viewHolder.txtDesSushi.setText(product.getDescription());
-        Picasso.with(context).load(product.getImage()).placeholder(R.drawable.noimage).error(R.drawable.noimageerror).into((Target) viewHolder.imgSushi);
+        Picasso.with(context).load(product.getImage())
+                .placeholder(R.drawable.noimage)
+                .error(R.drawable.noimageerror)
+                .into(viewHolder.imgSushi);
         return convertView;
     }
 }
