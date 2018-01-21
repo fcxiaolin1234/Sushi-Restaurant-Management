@@ -31,6 +31,7 @@ public class CartActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_cart);
         initComponents();
         toolbarAction();
         checkData();
@@ -139,15 +140,17 @@ public class CartActivity extends AppCompatActivity {
     }
 
     private void initComponents() {
-        listViewCart = findViewById(R.id.list_view_cart);
+        listViewCart = (ListView) findViewById(R.id.list_view_cart);
         txtAlert = findViewById(R.id.txt_alert);
         txtTotal = findViewById(R.id.txt_total_value);
         btnCheckout = findViewById(R.id.btn_checkout);
         btnContShop = findViewById(R.id.btn_continue_shop);
         toolbarCart = findViewById(R.id.toolbar_cart);
 
+        if(listViewCart != null) {
 
-        cartAdapter = new CartAdapter(CartActivity.this, NavigationActivity.listCart);
-        listViewCart.setAdapter(cartAdapter);
+            cartAdapter = new CartAdapter(CartActivity.this, NavigationActivity.listCart);
+            listViewCart.setAdapter(cartAdapter);
+        }
     }
 }

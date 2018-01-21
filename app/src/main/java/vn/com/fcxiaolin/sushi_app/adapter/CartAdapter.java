@@ -76,7 +76,7 @@ public class CartAdapter extends BaseAdapter {
                 .placeholder(R.drawable.noimage)
                 .error(R.drawable.noimageerror)
                 .into(viewHolder.imgCart);
-        viewHolder.btnValue.setText(cart.getSoLuong());
+        viewHolder.btnValue.setText("" + cart.getSoLuong());
 
         int soluong = Integer.parseInt(viewHolder.btnValue.getText().toString());
 

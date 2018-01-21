@@ -13,8 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".activity.NavigationActivity"
-            android:theme="@style/Navigation" />
+            android:name=".activity.NavigationActivity" />
         <activity
             android:name=".activity.Spalsh"
             android:noHistory="true"

@@ -3,6 +3,7 @@ package vn.com.fcxiaolin.sushi_app.activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -37,6 +38,8 @@ public class CustomerDetailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        setContentView(R.layout.customer_detail_layout);
         initComponents();
 
         btnReturn.setOnClickListener(new View.OnClickListener() {
@@ -66,6 +69,8 @@ public class CustomerDetailActivity extends AppCompatActivity {
                     StringRequest stringRequest = new StringRequest(Request.Method.POST, Server.orderUrl, new Response.Listener<String>() {
                         @Override
                         public void onResponse(final String responseOrder) {
+                            try {
+                                Log.i("ResponseOrder", responseOrder);
                             if (Integer.parseInt(responseOrder) > 0) {
                                 RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
                                 final StringRequest request = new StringRequest(Request.Method.POST, Server.orderDetailUrl, new Response.Listener<String>() {
@@ -116,7 +121,10 @@ public class CustomerDetailActivity extends AppCompatActivity {
                                 };
 
                                 queue.add(request);
-                            }
+                            }}
+                            catch(Exception e) {
+                                e.printStackTrace();
+                                }
                         }
                     }, new Response.ErrorListener() {
                         @Override
