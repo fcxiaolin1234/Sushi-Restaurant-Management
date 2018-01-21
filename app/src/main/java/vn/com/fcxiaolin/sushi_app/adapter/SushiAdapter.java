@@ -77,5 +77,10 @@ public class SushiAdapter extends BaseAdapter {
                 .error(R.drawable.noimageerror)
                 .into(viewHolder.imgSushi);
         return convertView;
+
+
+
+
+        //kkk
     }
 }
