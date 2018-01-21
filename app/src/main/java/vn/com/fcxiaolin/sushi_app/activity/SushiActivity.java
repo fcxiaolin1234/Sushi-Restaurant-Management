@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
@@ -42,32 +44,51 @@ public class SushiActivity extends AppCompatActivity {
     SushiAdapter sushiAdapter;
     ArrayList<Product> listSushi;
     int idsushi = 1;
-    int page=1;
+    int page = 1;
     private View footerView;
-    boolean isLoading=false;
+    boolean isLoading = false;
     mHandle nHandle;
-    boolean limitData=false;
+    boolean limitData = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sushi);
-        if(CheckConnection.haveNetworkConnection(getApplicationContext())){
+        if (CheckConnection.haveNetworkConnection(getApplicationContext())) {
             initComponent();
             getIdloaisp();
             ActionToolBar();
-            getProductData( page);
+            getProductData(page);
             LoadMoreData();
-        }else{
-            CheckConnection.showMessage(getApplicationContext(),"Kiểm tra lại kết nối!");
+        } else {
+            CheckConnection.showMessage(getApplicationContext(), "Kiểm tra lại kết nối!");
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_cart, menu);
+        return true;
+//        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_cart:
+                Intent intent = new Intent(getApplicationContext(), CartActivity.class);
+                startActivity(intent);
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     private void LoadMoreData() {
         lvSushi.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent= new Intent(getApplicationContext(),DetailProduct.class);
-                intent.putExtra("informationofproduct",listSushi.get(position));
+                Intent intent = new Intent(getApplicationContext(), DetailProduct.class);
+                intent.putExtra("informationofproduct", listSushi.get(position));
                 startActivity(intent);
             }
         });
@@ -80,75 +101,67 @@ public class SushiActivity extends AppCompatActivity {
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
 
-               if(firstVisibleItem+visibleItemCount==totalItemCount&& isLoading==false &&totalItemCount!=0&&limitData==false)
-               {
-                        isLoading=true;
-                        Log.d("onscroll",""+firstVisibleItem+""+visibleItemCount+""+totalItemCount);
-                        lvSushi.removeFooterView(footerView);
-                         mThread dataThread =new mThread();
-                        dataThread.start();
-               }
+                if (firstVisibleItem + visibleItemCount == totalItemCount && isLoading == false && totalItemCount != 0 && limitData == false) {
+                    isLoading = true;
+                    Log.d("onscroll", "" + firstVisibleItem + "" + visibleItemCount + "" + totalItemCount);
+                    lvSushi.removeFooterView(footerView);
+                    mThread dataThread = new mThread();
+                    dataThread.start();
+                }
 
             }
         });
     }
 
     private void getProductData(int page) {
-        final RequestQueue requestQueue= Volley.newRequestQueue(getApplicationContext());
-        String sushiurl= Server.typeProductUrl+String.valueOf(page);
-        Log.d("sushiurl",""+sushiurl);
-        StringRequest  stringRequest = new StringRequest(Request.Method.POST, sushiurl, new Response.Listener<String>() {
+        final RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+        String sushiurl = Server.typeProductUrl + String.valueOf(page);
+        Log.d("sushiurl", "" + sushiurl);
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, sushiurl, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                    int id=0;
-                    String name="";
-                    float price=0;
-                    String image="";
-                    String description="";
-                    int idcategory=0;
-                    if(response!=null&&response.length()!=2)
-                    {
-                        lvSushi.removeFooterView(footerView);
-                        try
-                        {
-                            JSONArray jsonArray= new JSONArray(response);
-                            for(int i=0; i<jsonArray.length();i++)
-                            {
-                                JSONObject jsonObject= jsonArray.getJSONObject(i);
-                                id=jsonObject.getInt("id");
-                                name=jsonObject.getString("name");
-                                price=jsonObject.getInt("price");
-                                image=jsonObject.getString("image_link");
-                                description=jsonObject.getString("description");
-                                idcategory=jsonObject.getInt("id_category");
-                                listSushi.add(new Product(id,name,price,image,description,idcategory));
-                                sushiAdapter.notifyDataSetChanged();
+                int id = 0;
+                String name = "";
+                float price = 0;
+                String image = "";
+                String description = "";
+                int idcategory = 0;
+                if (response != null && response.length() != 2) {
+                    lvSushi.removeFooterView(footerView);
+                    try {
+                        JSONArray jsonArray = new JSONArray(response);
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            JSONObject jsonObject = jsonArray.getJSONObject(i);
+                            id = jsonObject.getInt("id");
+                            name = jsonObject.getString("name");
+                            price = jsonObject.getInt("price");
+                            image = jsonObject.getString("image_link");
+                            description = jsonObject.getString("description");
+                            idcategory = jsonObject.getInt("id_category");
+                            listSushi.add(new Product(id, name, price, image, description, idcategory));
+                            sushiAdapter.notifyDataSetChanged();
 
-                            }
                         }
-                        catch (Exception e)
-                        {
-                            Log.i("tagconvertstr", "["+e+"]");
-                            e.printStackTrace();
-                        }
+                    } catch (Exception e) {
+                        Log.i("tagconvertstr", "[" + e + "]");
+                        e.printStackTrace();
                     }
-                    else
-                    {
-                        limitData=true;
-                        lvSushi.removeFooterView(footerView);
-                        CheckConnection.showMessage(getApplicationContext(),"Đã hết dữ liệu");
-                    }
+                } else {
+                    limitData = true;
+                    lvSushi.removeFooterView(footerView);
+                    CheckConnection.showMessage(getApplicationContext(), "Đã hết dữ liệu");
+                }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
 
             }
-        }){
+        }) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
-                HashMap<String, String > params = new HashMap<String, String>();
-                params.put("idproduct",String.valueOf(idsushi));
+                HashMap<String, String> params = new HashMap<String, String>();
+                params.put("idproduct", String.valueOf(idsushi));
                 return params;
             }
         };
@@ -168,38 +181,36 @@ public class SushiActivity extends AppCompatActivity {
 
     }
 
-    private void getIdloaisp()
-    {
-        idsushi=getIntent().getIntExtra("id_category",-1);
-        Log.d("gia tri loai sp",""+idsushi);
+    private void getIdloaisp() {
+        idsushi = getIntent().getIntExtra("id_category", -1);
+        Log.d("gia tri loai sp", "" + idsushi);
     }
 
-    private void initComponent(){
+    private void initComponent() {
         tbSushi = findViewById(R.id.toolbarSushi);
         lvSushi = findViewById(R.id.listViewSushi);
         listSushi = new ArrayList<>();
-        sushiAdapter = new SushiAdapter(getApplicationContext(),listSushi);
+        sushiAdapter = new SushiAdapter(getApplicationContext(), listSushi);
         lvSushi.setAdapter(sushiAdapter);
-        LayoutInflater layoutInflater=(LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
-        footerView=layoutInflater.inflate(R.layout.progressbar,null);
-        nHandle=new mHandle();
+        LayoutInflater layoutInflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
+        footerView = layoutInflater.inflate(R.layout.progressbar, null);
+        nHandle = new mHandle();
     }
-    public class mHandle extends Handler{
+
+    public class mHandle extends Handler {
         @Override
-        public void handleMessage (Message msg)
-        {
-            Log.d("what",""+msg.what);
-            switch (msg.what)
-            {
+        public void handleMessage(Message msg) {
+            Log.d("what", "" + msg.what);
+            switch (msg.what) {
                 case 0:
                     lvSushi.addFooterView(footerView);
                     break;
                 case 1:
                     page++;
-                    Log.d("handle","asdbasb");
-                    Log.d("page=",""+page);
+                    Log.d("handle", "asdbasb");
+                    Log.d("page=", "" + page);
                     getProductData(page);
-                    isLoading=false;
+                    isLoading = false;
                     break;
 
 
@@ -208,18 +219,17 @@ public class SushiActivity extends AppCompatActivity {
         }
 
     }
-    public class mThread extends  Thread {
+
+    public class mThread extends Thread {
         @Override
         public void run() {
             nHandle.sendEmptyMessage(0);
-            try{
+            try {
                 Thread.sleep(3000);
-            }
-            catch (InterruptedException e)
-            {
+            } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            Message msg=nHandle.obtainMessage(1);
+            Message msg = nHandle.obtainMessage(1);
             nHandle.sendMessage(msg);
             super.run();
         }

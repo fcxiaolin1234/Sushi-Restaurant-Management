@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
 import android.view.MenuItem;
 
 import android.support.v7.widget.Toolbar;
@@ -40,6 +41,7 @@ import java.util.ArrayList;
 import vn.com.fcxiaolin.sushi_app.R;
 import vn.com.fcxiaolin.sushi_app.adapter.CategoryAdapter;
 import vn.com.fcxiaolin.sushi_app.adapter.ProductAdapter;
+import vn.com.fcxiaolin.sushi_app.model.Cart;
 import vn.com.fcxiaolin.sushi_app.model.Category;
 import vn.com.fcxiaolin.sushi_app.model.Product;
 import vn.com.fcxiaolin.sushi_app.utils.CheckConnection;
@@ -59,7 +61,9 @@ public class NavigationActivity extends AppCompatActivity {
     private ArrayList<Product> listProduct;
     private ProductAdapter productAdapter;
 
-    //@Override
+    public static ArrayList<Cart> listCart;
+
+//    @Override
 //    protected void onCreate(Bundle savedInstanceState) {
 //        super.onCreate(savedInstanceState);
 //        setContentView(R.layout.navigation_screen);
@@ -91,83 +95,103 @@ public class NavigationActivity extends AppCompatActivity {
         categoryAdapter = new CategoryAdapter(categoryList, getApplicationContext());
         listView.setAdapter(categoryAdapter);
         listProduct = new ArrayList<Product>();
-        productAdapter = new ProductAdapter(getApplicationContext(),listProduct);
+        productAdapter = new ProductAdapter(getApplicationContext(), listProduct);
         mainRecyclerView.setHasFixedSize(true);
-        mainRecyclerView.setLayoutManager(new GridLayoutManager(getApplicationContext(),2));
+        mainRecyclerView.setLayoutManager(new GridLayoutManager(getApplicationContext(), 2));
         mainRecyclerView.setAdapter(productAdapter);
 
+        //
+        if (listCart != null) {
 
-        if(drawerLayout == null)
+        } else {
+            listCart = new ArrayList<>();
+        }
+
+        if (drawerLayout == null)
             System.out.println("DrawerLayout not found");
 
-        if(CheckConnection.haveNetworkConnection(getApplicationContext())) {
+        if (CheckConnection.haveNetworkConnection(getApplicationContext())) {
             initViewFlipperAction();
             initToolbarAction();
             getCategoryData();
             getNewProductData();
             catchOnItemListView();
-        }
-        else {
+        } else {
             CheckConnection.showMessage(getApplicationContext(), "Kiểm tra lại kết nối Internet");
             finish();
         }
+    }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_cart, menu);
+        return true;
+//        return super.onCreateOptionsMenu(menu);
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_cart:
+                Intent intent = new Intent(getApplicationContext(), CartActivity.class);
+                startActivity(intent);
+        }
 
+        return super.onOptionsItemSelected(item);
     }
 
     private void catchOnItemListView() {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                switch (position){
+                switch (position) {
                     case 0:
-                        if(CheckConnection.haveNetworkConnection(getApplicationContext())){
-                            Intent intent = new Intent(NavigationActivity.this,SushiActivity.class);
-                            intent.putExtra("id_category",categoryList.get(position).getId());
+                        if (CheckConnection.haveNetworkConnection(getApplicationContext())) {
+                            Intent intent = new Intent(NavigationActivity.this, SushiActivity.class);
+                            intent.putExtra("id_category", categoryList.get(position).getId());
                             startActivity(intent);
-                        }else{
-                            CheckConnection.showMessage(getApplicationContext(),"Kiểm tra lại kết nối!");
+                        } else {
+                            CheckConnection.showMessage(getApplicationContext(), "Kiểm tra lại kết nối!");
                         }
                         drawerLayout.closeDrawer(GravityCompat.START);
                         break;
                     case 1:
-                        if(CheckConnection.haveNetworkConnection(getApplicationContext())){
-                            Intent intent = new Intent(NavigationActivity.this,SukiyakiActivity.class);
-                            intent.putExtra("id_category",categoryList.get(position).getId());
+                        if (CheckConnection.haveNetworkConnection(getApplicationContext())) {
+                            Intent intent = new Intent(NavigationActivity.this, SukiyakiActivity.class);
+                            intent.putExtra("id_category", categoryList.get(position).getId());
                             startActivity(intent);
-                        }else{
-                            CheckConnection.showMessage(getApplicationContext(),"Kiểm tra lại kết nối!");
+                        } else {
+                            CheckConnection.showMessage(getApplicationContext(), "Kiểm tra lại kết nối!");
                         }
                         drawerLayout.closeDrawer(GravityCompat.START);
                         break;
                     case 2:
-                        if(CheckConnection.haveNetworkConnection(getApplicationContext())){
-                            Intent intent = new Intent(NavigationActivity.this,SobaActivity.class);
-                            intent.putExtra("id_category",categoryList.get(position).getId());
+                        if (CheckConnection.haveNetworkConnection(getApplicationContext())) {
+                            Intent intent = new Intent(NavigationActivity.this, SobaActivity.class);
+                            intent.putExtra("id_category", categoryList.get(position).getId());
                             startActivity(intent);
-                        }else{
-                            CheckConnection.showMessage(getApplicationContext(),"Kiểm tra lại kết nối!");
+                        } else {
+                            CheckConnection.showMessage(getApplicationContext(), "Kiểm tra lại kết nối!");
                         }
                         drawerLayout.closeDrawer(GravityCompat.START);
                         break;
                     case 3:
-                        if(CheckConnection.haveNetworkConnection(getApplicationContext())){
-                            Intent intent = new Intent(NavigationActivity.this,DrinkActivity.class);
-                            intent.putExtra("id_category",categoryList.get(position).getId());
+                        if (CheckConnection.haveNetworkConnection(getApplicationContext())) {
+                            Intent intent = new Intent(NavigationActivity.this, DrinkActivity.class);
+                            intent.putExtra("id_category", categoryList.get(position).getId());
                             startActivity(intent);
-                        }else{
-                            CheckConnection.showMessage(getApplicationContext(),"Kiểm tra lại kết nối!");
+                        } else {
+                            CheckConnection.showMessage(getApplicationContext(), "Kiểm tra lại kết nối!");
                         }
                         drawerLayout.closeDrawer(GravityCompat.START);
                         break;
                     case 4:
-                        if(CheckConnection.haveNetworkConnection(getApplicationContext())){
-                            Intent intent = new Intent(NavigationActivity.this,KhacActivity.class);
-                            intent.putExtra("id_category",categoryList.get(position).getId());
+                        if (CheckConnection.haveNetworkConnection(getApplicationContext())) {
+                            Intent intent = new Intent(NavigationActivity.this, KhacActivity.class);
+                            intent.putExtra("id_category", categoryList.get(position).getId());
                             startActivity(intent);
-                        }else{
-                            CheckConnection.showMessage(getApplicationContext(),"Kiểm tra lại kết nối!");
+                        } else {
+                            CheckConnection.showMessage(getApplicationContext(), "Kiểm tra lại kết nối!");
                         }
                         drawerLayout.closeDrawer(GravityCompat.START);
                         break;
@@ -175,17 +199,18 @@ public class NavigationActivity extends AppCompatActivity {
             }
         });
     }
-// loai san pham
+
+    // loai san pham
     private void getCategoryData() {
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Server.categoryUrl, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
-                if(response != null) {
+                if (response != null) {
                     int id = 0;
                     String categoryName = "";
                     String imageLink = "";
-                    for(int i=0; i<response.length(); i++) {
+                    for (int i = 0; i < response.length(); i++) {
                         try {
                             JSONObject jsonObject = response.getJSONObject(i);
                             id = jsonObject.getInt("id");
@@ -208,21 +233,22 @@ public class NavigationActivity extends AppCompatActivity {
         });
         requestQueue.add(jsonArrayRequest);
     }
-// san pham moi nhat
-    private void getNewProductData(){
-        RequestQueue requestQueue= Volley.newRequestQueue(getApplicationContext());
+
+    // san pham moi nhat
+    private void getNewProductData() {
+        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Server.newProductUrl, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
-                if(response != null){
-                    int id =0;
+                if (response != null) {
+                    int id = 0;
                     String name = "";
                     float price = 0;
                     String image = "";
                     String description = "";
                     int idcategory = 0;
-                    for(int i=0; i<response.length(); i++){
-                        try{
+                    for (int i = 0; i < response.length(); i++) {
+                        try {
                             JSONObject jsonObject = response.getJSONObject(i);
                             id = jsonObject.getInt("id");
                             name = jsonObject.getString("name");
@@ -230,9 +256,9 @@ public class NavigationActivity extends AppCompatActivity {
                             image = jsonObject.getString("image_link");
                             description = jsonObject.getString("description");
                             idcategory = jsonObject.getInt("id_category");
-                            listProduct.add(new Product(id,name,price,image,description,idcategory));
+                            listProduct.add(new Product(id, name, price, image, description, idcategory));
                             productAdapter.notifyDataSetChanged();
-                        }catch (Exception e){
+                        } catch (Exception e) {
                             e.printStackTrace();
                         }
                     }
@@ -247,6 +273,7 @@ public class NavigationActivity extends AppCompatActivity {
         });
         requestQueue.add(jsonArrayRequest);
     }
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -262,7 +289,7 @@ public class NavigationActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(drawerLayout != null)
+                if (drawerLayout != null)
                     drawerLayout.openDrawer(GravityCompat.START);
             }
         });
@@ -275,7 +302,7 @@ public class NavigationActivity extends AppCompatActivity {
         imageUrls.add("http://www.menu-tokyo.jp/tradition/img/sk_05.jpg");
         imageUrls.add("http://www.menu-tokyo.jp/tradition/img/sk_01.jpg");
 
-        for(int i=0; i<imageUrls.size(); i++) {
+        for (int i = 0; i < imageUrls.size(); i++) {
             ImageView imageView = new ImageView(getApplicationContext());
             Picasso.with(getApplicationContext()).load(imageUrls.get(i)).into(imageView);
             imageView.setScaleType(ImageView.ScaleType.FIT_XY);
