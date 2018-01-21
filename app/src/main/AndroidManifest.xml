@@ -30,7 +30,9 @@
         <activity android:name=".activity.SobaActivity" />
         <activity android:name=".activity.DrinkActivity" />
         <activity android:name=".activity.KhacActivity" />
-        <activity android:name=".activity.DetailProduct"></activity>
+        <activity android:name=".activity.DetailProduct" />
+        <activity android:name=".activity.CartActivity" />
+        <activity android:name=".activity.CustomerDetailActivity"></activity>
     </application>
 
 </manifest>
