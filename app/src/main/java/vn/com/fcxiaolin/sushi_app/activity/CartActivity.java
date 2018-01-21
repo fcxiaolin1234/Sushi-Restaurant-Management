@@ -146,6 +146,7 @@ public class CartActivity extends AppCompatActivity {
         btnContShop = findViewById(R.id.btn_continue_shop);
         toolbarCart = findViewById(R.id.toolbar_cart);
 
+
         cartAdapter = new CartAdapter(CartActivity.this, NavigationActivity.listCart);
         listViewCart.setAdapter(cartAdapter);
     }
